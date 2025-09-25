@@ -1,0 +1,19 @@
+Important NOTE:
+
+This script calculates the Synthetic Accessibility Score (SA_Score) for molecules
+from an input Excel file containing at least the columns 'ID' and 'Smiles'.
+
+The SA_Score index is reported in: https://doi.org/10.1186/1758-2946-1-8
+
+It can be used to update an existing database that already has SA_Score values.
+The script automatically calculates SA_Score only for the missing entries, leaving
+previously computed values unchanged.
+
+Progress is shown in real time by displaying the last successfully processed ID.
+
+You may see a warning like:
+"[timestamp] DEPRECATION WARNING: please use MorganGenerator"
+This warning originates from the RDKit sascorer module and is not caused by this script.
+It is safe to ignore; the script will produce correct SA_Score values.
+
+For full details about how this script works, refer to the main script in this folder.

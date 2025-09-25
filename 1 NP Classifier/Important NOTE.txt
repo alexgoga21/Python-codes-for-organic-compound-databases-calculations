@@ -1,0 +1,19 @@
+'1_Database classification counts and plots.ipynb' 
+
+1)This code is designed to clasify natural products from its SMILES strings.
+2)When a database is updated and new compounds are added to a database that already have their compounds classified with this code, it is recomended:
+	2.1)Use this code to classify the new compounds in a separate file.
+	2.2)Then integrate the new compounds into the database, including the calculated Pathway, SuperClass and Class.
+	2.3)Use the code '2_Just counts and plots' to calculate the counts and construct the pie charts with the updated database.
+
+'2_Just counts and plots'
+1)This code doesn't classify compounds, instead, just obtain the counts and pie charts of a database which compounds were already classified with 
+'1_Database classification counts and plots.ipynb'.
+2)It is designed for the case when new compounds are added to a database which compounds were previously classified with '1_Database classification counts and plots.ipynb'.
+	2.1)The first step is to use the code '1_Database classification counts and plots.ipynb' in a separate file that just contain the new compounds curated, to obtain 
+	the classification of the new compounds.
+	2.2)After merging the new compounds already classified with the whole database (including their NP classification), use this code to obtain the counts and pie charts 
+	of the whole database.
+3)This code was created because if it's intended to update the database with new compounds, when using the code '1_Database classification counts and plots.ipynb', 
+to the database merged with the new compounds, the code '1_Database...' would obtain not just the classification of the new compounds but also the classification of the already 
+classified compounds. 

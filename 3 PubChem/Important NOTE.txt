@@ -1,0 +1,52 @@
+# ============================================================
+# ?? Pipeline explanation: From SMILES to commercial availability
+#
+# This collection of blocks forms a complete workflow that:
+# 1. Generates InChIKeys from SMILES using RDKit.
+# 2. Queries PubChem with its API (pubchempy) to retrieve CIDs/SIDs for each compound.
+# 3. Retrieves vendor information and commercial availability.
+#
+# ? Requirements and recommendations:
+# - The input Excel file must contain a column named "Smiles".
+# - It is highly recommended to include an "ID" column
+#   (unique identifier for each compound).
+# - If the database already contains calculated columns
+#   ("InChIKey", "PubChem CID/SID", etc.), the script will
+#   skip those entries. This allows updating existing datasets
+#   without overwriting previous results.
+#
+# ? Workflow robustness:
+# - Each block automatically resumes from existing output files
+#   (e.g., *_inchikey.xlsx, *_CID.xlsx, *_vendors.xlsx), including partially completed runs.
+# - You can optionally resume from a specific compound ID in blocks that support it
+#   (e.g., InChIKey generation: start_from_id = 'LANaPDB13579').
+# - Safe to interrupt: results are progressively saved and
+#   can be resumed in the next execution.
+# - ?? Important: when starting the pipeline from scratch, do NOT use a file
+#   that already has suffixes like "_inchikey", "_CID", or "_vendors" as input,
+#   to avoid confusion in later blocks.
+#
+# ------------------------------------------------------------
+# Example 1: Minimal input database (only ID and Smiles)
+# (first 5 rows)
+#     ID      Smiles
+#     001     CCO
+#     002     C1CCO1
+#     003     CCN(CC)C
+#     004     COC
+#     005     CC(=O)O
+#
+# ------------------------------------------------------------
+# Example 2: Database that can be updated with this workflow
+# (some columns already filled, others empty)
+#     ID      Smiles        InChIKey                           PubChem CID/SID   Number of vendors in Pubchem   Commercial availability
+#     001     CCO           LFQSCWFLJHTTHZ-UHFFFAOYSA-N             702                 12                             Purchasable
+#     002     C1CCO1        ZUXXECWHPGJHCN-UHFFFAOYSA-N             1234                13                             Not purchasable
+#     003     CCN(CC)C      KXKPIXYAXDZYMO-UHFFFAOYSA-N             325                 20                             Purchasable
+#     004     COC           <empty>                                 <empty>            <empty>                         <empty>
+#     005     CC(=O)O       <empty>                                 <empty>            <empty>                         <empty>
+#
+# In this second case, the workflow will:
+# - Skip already completed values (e.g., row 001).
+# - Resume missing calculations for the empty fields.
+# ============================================================

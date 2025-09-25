@@ -1,0 +1,16 @@
+'1_Physicochemical properties and chirality.ipynb'
+
+Code function:
+1)This code calculates the following descriptors SlogP, TPSA,   MW, NumRotatableBonds,  NumHBD and  NumHBA.
+2)Also calculates some parameters related with the chirality: NumStereocenters and  NumUnspecifiedStereocenters.
+    2.1)The compounds are classified according to their chirality: chirality annotated, chirality not annotated and achiral.
+    
+ '2_Database merge.ipynb'
+ 
+ Code function:
+ 1)This code is to merge a compound database which previously was determined their physicochemical properties and chirality with the code:
+ '1_Physicochemical properties and chirality.ipynb' with another set of new compounds whose these same descriptors were calculated with the above   
+ mentioned code, but, in a separate file.
+ 
+All the additional details and requirements of both codes are inside the .ipynb files.
+

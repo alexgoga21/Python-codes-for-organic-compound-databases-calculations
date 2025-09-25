@@ -1,0 +1,6 @@
+This script calculates the size-normalized Spacial Score (nSPS) for molecules 
+based on their SMILES representations. It can also update an existing dataset 
+by detecting empty values in the 'Spacial Score' column and computing results 
+only for those entries, leaving previously calculated values unchanged.
+
+Further details about its functionality are fully explained inside the script itself.

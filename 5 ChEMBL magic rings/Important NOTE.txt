@@ -1,0 +1,7 @@
+Important Note
+--------------
+
+All the details about what this script does and how it works are fully described inside the script itself.  
+
+Please make sure that the file "magic rings.xlsx" is located in the same folder as this script.  
+This file is essential for the script to run properly, since it contains the bioactive ChEMBL rings (magic rings) used for substructure matching.

@@ -1,0 +1,4 @@
+This Python codes were used to calculate the respective properties of LANaPDB.
+The same codes are intended to be used to update LANaPDB, calculating these properties to the new compounds.
+
+Nonetheless, can be used to calculate the same properties of another database of chemical compounds and also update it with the same codes.

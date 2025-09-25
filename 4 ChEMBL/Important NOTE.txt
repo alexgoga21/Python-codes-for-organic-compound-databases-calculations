@@ -1,0 +1,54 @@
+# ============================================================
+# ?? Pipeline explanation: From SMILES to ChEMBL ID and bioactivity
+#
+# This workflow performs the following steps:
+# 1. Generates InChIKeys from SMILES using RDKit.
+# 2. Queries ChEMBL (via the chembl_webresource_client) to retrieve:
+#    - ChEMBL IDs for each compound.
+#    - Associated bioactivity classes (if available).
+# 3. Writes results directly into the same dataset (no extra columns
+#    are created unless bioactivities contain multiple entries).
+#
+# ? Requirements and recommendations:
+# - The input Excel file must contain a column named "Smiles".
+# - It is highly recommended to include an "ID" column
+#   (unique identifier for each compound).
+# - If the database already contains calculated columns
+#   ("InChIKey", "ChEMBL ID", "ChEMBL bioactivity..."), the script
+#   will skip those entries. This allows updating existing datasets
+#   without overwriting previous results.
+#
+# ? Workflow robustness:
+# - You can specify a starting compound ID (start_id) so the script
+#   begins processing from that point downward.
+# - Safe to interrupt: results are progressively saved every N compounds
+#   and also if the process is manually stopped (e.g., Stop button in Jupyter).
+#   Work can be resumed in the next execution.
+#   ?? The script will automatically detect if there is an existing
+#   output file (with "_results" in the name) and continue from there.
+#
+# ------------------------------------------------------------
+# Example 1: Minimal input database (only ID and Smiles)
+# (first 5 rows)
+#     ID          Smiles
+#     CMPD001     CCO
+#     CMPD002     C1CCO1
+#     CMPD003     CCN(CC)C
+#     CMPD004     COC
+#     CMPD005     CC(=O)O
+#
+# ------------------------------------------------------------
+# Example 2: Database that can be updated with this workflow
+# (some columns already filled, others empty)
+#     ID          Smiles        InChIKey                           ChEMBL ID     ChEMBL bioactivity 1   ChEMBL bioactivity 2
+#     CMPD001     CCO           LFQSCWFLJHTTHZ-UHFFFAOYSA-N        CHEMBL25      GPCR ligand
+#     CMPD002     C1CCO1        ZUXXECWHPGJHCN-UHFFFAOYSA-N        CHEMBL123     Enzyme inhibitor        Kinase
+#     CMPD003     CCN(CC)C      KXKPIXYAXDZYMO-UHFFFAOYSA-N        not found     <empty>                 <empty>
+#     CMPD004     COC           <empty>                           <empty>       <empty>                 <empty>
+#     CMPD005     CC(=O)O       <empty>                           <empty>       <empty>                 <empty>
+#
+# In this second case, the workflow will:
+# - Skip already completed values (e.g., row CMPD001).
+# - Resume missing calculations for the empty fields.
+# - Continue seamlessly from a specified compound ID if desired.
+# ============================================================
